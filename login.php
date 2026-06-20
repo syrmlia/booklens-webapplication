@@ -1,9 +1,10 @@
 <?php
+// Memulai session untuk mengecek status login user
 session_start();
 include 'koneksi.php';
 
 // Jika user ternyata sudah login, langsung alihkan ke halaman utama user (home.php)
-if (isset($_SESSION['id_user'])) {
+if (isset($_SESSION['username'])) {
     header("Location: home.php");
     exit();
 }
@@ -12,29 +13,34 @@ $error_message = "";
 
 // Proses ketika tombol login ditekan
 if (isset($_POST['login'])) {
-    $email = mysqli_real_escape_string($db, $_POST['email']);
+    // PERBAIKAN 1: Mengubah $conn menjadi $koneksi sesuai file koneksi.php
+    $email = mysqli_real_escape_string($koneksi, $_POST['email']);
     $password = $_POST['password']; 
 
     if (!empty($email) && !empty($password)) {
-        // Sesuaikan nama tabel dan kolom sesuai database kamu
-        $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
-        $result = mysqli_query($db, $query);
+        // PERBAIKAN 2: Menyamakan nama tabel 'Users' (Huruf U besar) sesuai register.php
+        $query = "SELECT * FROM Users WHERE email = '$email' OR username = '$email' LIMIT 1";
+        // PERBAIKAN 3: Mengubah $db menjadi $koneksi
+        $result = mysqli_query($koneksi, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             $user_data = mysqli_fetch_assoc($result);
             
-            // Contoh pencocokan string langsung (ganti ke password_verify() jika di-hash)
-            if ($user_data['password'] === $password) {
-                $_SESSION['id_user'] = $user_data['id_user'];
+            // PERBAIKAN 4: Mengubah perbandingan teks biasa '===' menjadi password_verify() karena password di-hash
+            if (password_verify($password, $user_data['password'])) {
+                
+                // Menetapkan session data login dengan aman
+                $_SESSION['username'] = $user_data['username'];
                 $_SESSION['nama'] = $user_data['nama']; 
                 
+                // Alihkan langsung ke halaman dashboard utama
                 header("Location: home.php");
                 exit();
             } else {
                 $error_message = "Password yang Anda masukkan salah.";
             }
         } else {
-            $error_message = "Email tidak terdaftar.";
+            $error_message = "Email atau Username tidak terdaftar.";
         }
     } else {
         $error_message = "Silakan isi semua kolom.";
@@ -63,7 +69,7 @@ if (isset($_POST['login'])) {
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background-color: #f4f7f9; /* Background abu-abu terang sesuai figma */
+            background-color: #f4f7f9; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -203,7 +209,7 @@ if (isset($_POST['login'])) {
         /* Tombol Utama Login Dengan Panah Sesuai Desain */
         .btn-blue-login {
             width: 100%;
-            background-color: #2b3a4a; /* Warna Navy Gelap khas figma */
+            background-color: #2b3a4a; 
             color: #ffffff;
             border: none;
             padding: 12px;
@@ -297,7 +303,7 @@ if (isset($_POST['login'])) {
 
     <div class="header-container">
         <div class="header-icon">
-            <img src="assets/images/ui/Vector_login.png" alt="BookLens Logo" class="login-custom-logo">
+            <img src="assets/images/ui/boxicons_book.png" alt="BookLens Logo" class="login-custom-logo" style="width: 60px; height: 60px; object-fit: contain;">
         </div>
         <h1>Welcome Back</h1>
         <p>Please Log in to your BookLens account</p>
@@ -311,10 +317,10 @@ if (isset($_POST['login'])) {
 
         <form action="login.php" method="POST">
             <div class="form-group">
-                <label>Email</label>
+                <label>Email or Username</label>
                 <div class="input-inner-wrapper">
                     <i class="fa-regular fa-envelope field-icon-left"></i>
-                    <input type="email" name="email" placeholder="yourname@example.com" required>
+                    <input type="text" name="email" placeholder="yourname@example.com / username" required>
                 </div>
             </div>
 
@@ -332,7 +338,7 @@ if (isset($_POST['login'])) {
 
             <div class="remember-wrapper">
                 <input type="checkbox" id="remCheck" name="remember">
-                <label tribe="remCheck" for="remCheck">Remember me</label>
+                <label for="remCheck">Remember me</label>
             </div>
 
             <button type="submit" name="login" class="btn-blue-login">
@@ -357,7 +363,6 @@ if (isset($_POST['login'])) {
     </div>
 
     <script>
-        // Fungsi interaktif penampil sandi ketika ikon mata diklik
         function viewPasswordToggle() {
             var inputPass = document.getElementById("inputPass");
             var eyeIcon = document.querySelector(".eye-toggle-right");

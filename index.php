@@ -36,7 +36,7 @@ include 'koneksi.php';
 <nav class="navbar">
     <div class="logo-brand">
         <a href="index.php" class="brand-link">
-            <img src="assets/images/ui/Vector-landingpage.png" alt="BookLens Logo" class="nav-logo-img">
+            <img src="assets/images/ui/boxicons_book.png" alt="BookLens Logo" class="nav-logo-img">
             <span class="brand-text">BookLens</span>
         </a>
     </div>

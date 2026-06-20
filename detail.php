@@ -84,7 +84,7 @@ $database_buku = [
     ]
 ];
 
-// 3. Database internal simulasi review khusus untuk masing-masing ID Buku
+// 3. Database internal review khusus untuk masing-masing ID Buku
 $database_reviews = [
     1 => [
         ["user" => "Musyira Amalia", "date" => "Juni 07, 2026", "stars" => 5, "text" => "Suka sekali dengan pembawaan alur ceritanya, sangat menyentuh hati dan bikin nangis!"],
@@ -136,7 +136,7 @@ if (array_key_exists($id_buku, $database_buku)) {
     <nav class="navbar">
         <div class="logo-brand">
             <a href="index.php" class="brand-link">
-                <img src="assets/images/ui/Vector-landingpage.png" alt="BookLens Logo" class="nav-logo-img">
+                <img src="assets/images/ui/boxicons_book.png" alt="BookLens Logo" class="nav-logo-img">
                 <span class="brand-text">BookLens</span>
             </a>
         </div>

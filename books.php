@@ -1,5 +1,4 @@
 <?php
-// Array Data Koleksi Buku (Dummy Database)
 $books_collection = [
     [
         "id" => 1,
@@ -59,26 +58,28 @@ $books_collection = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore Books - BookLens</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./main.css?v=1.3">
+    <link rel="stylesheet" href="./main.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo-brand">
-            <a href="index.php" class="brand-link">
-                <img src="assets/images/ui/Vector-landingpage.png" alt="BookLens Logo" class="nav-logo-img">
-                <span class="brand-text">BookLens</span>
-            </a>
-        </div>
-        <div class="nav-links">
-            <a href="index.php">Home</a>
-            <a href="books.php" class="active">Books</a>
-        </div>
-        <div class="nav-auth-buttons">
-            <a href="login.php" class="btn-login">Login</a>
-            <a href="register.php" class="btn-register">Register</a>
-        </div>
-    </nav>
+<nav class="navbar">
+    <div class="logo-brand">
+        <a href="index.php" class="brand-link">
+            <img src="assets/images/ui/boxicons_book.png" alt="BookLens Logo" class="nav-logo-img">
+            <span class="brand-text">BookLens</span>
+        </a>
+    </div>
+
+    <div class="nav-links">
+        <a href="index.php">Home</a>
+        <a href="books.php" class="active">Books</a>
+    </div>
+
+    <div class="nav-auth-buttons">
+        <a href="login.php" class="btn-login">Login</a>
+        <a href="register.php" class="btn-register">Register</a>
+    </div>
+</nav>
 
     <main class="container explore-section">
         
@@ -98,22 +99,22 @@ $books_collection = [
             <aside class="filter-sidebar">
                 <div class="filter-group">
                     <h3><i class="fa-solid fa-layer-group"></i> Genre</h3>
-                    <label class="checkbox-container">Fantasy <input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="checkbox-container">Mystery <input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="checkbox-container">Romance <input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="checkbox-container">Horor <input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="checkbox-container">Thriller <input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="checkbox-container">Sci-Fi <input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="checkbox-container">Self Help <input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="checkbox-container">Business <input type="checkbox"><span class="checkmark"></span></label>
+                    <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Fantasy </label>
+                    <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Mystery</label>
+                    <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Romance</label>
+                    <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Horor</label>
+                    <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Thriller </label>
+                    <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Sci-Fi </label>
+                    <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Self Help </label>
+                    <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Business </label>
                 </div>
 
                 <div class="filter-group">
                     <h3><i class="fa-solid fa-star"></i> Rating</h3>
-                    <label class="radio-container">All Rating <input type="radio" name="rating" checked><span class="radiomark"></span></label>
-                    <label class="radio-container">5 Star <input type="radio" name="rating"><span class="radiomark"></span></label>
-                    <label class="radio-container">4+ Star <input type="radio" name="rating"><span class="radiomark"></span></label>
-                    <label class="radio-container">3+ Star <input type="radio" name="rating"><span class="radiomark"></span></label>
+                    <label class="radio-container"><input type="radio" name="rating" checked><span class="radiomark"></span>All Rating </label>
+                    <label class="radio-container"><input type="radio" name="rating"><span class="radiomark"></span>5 Star </label>
+                    <label class="radio-container"><input type="radio" name="rating"><span class="radiomark"></span>4+ Star </label>
+                    <label class="radio-container"><input type="radio" name="rating"><span class="radiomark"></span>3+ Star </label>
                 </div>
 
                 <button class="btn-reset">Reset</button>
@@ -121,7 +122,7 @@ $books_collection = [
 
             <section class="books-display-area">
                 <div class="books-explore-grid">
-                    
+                
                     <?php foreach ($books_collection as $item): ?>
                     <div class="explore-book-card">
                         <span class="badge-rating"><i class="fa-solid fa-star"></i> <?php echo $item['rating']; ?></span>

@@ -24,7 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                              VALUES ('$nama', '$username', '$email', '$password_aman', 'user', NULL)";
 
             if (mysqli_query($koneksi, $query_simpan)) {
-                $pesan_sukses = "Akun berhasil dibuat! Mengalihkan...";
+                $pesan_sukses = "Akun berhasil dibuat! Mengalihkan ke halaman login...";
+                // Pengalihan lewat server-side PHP (2 detik)
                 header("refresh:2;url=login.php");
             } else {
                 $pesan_error = "Gagal mendaftar: " . mysqli_error($koneksi);
@@ -33,19 +34,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookLens - Register</title>
+    
+    <?php if ($pesan_sukses): ?>
+        <meta http-equiv="refresh" content="2;url=login.php">
+    <?php endif; ?>
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
